@@ -7,6 +7,8 @@ import com.apiai.service.domain.weather.CurrentWeather;
 import com.apiai.service.domain.weather.WeatherForecast;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
+
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -35,23 +37,23 @@ public class WeatherApiServiceIntegration {
         if(action.equals("weather")){
 
             String weather_location=null;
-            String weather_date=null;
 
             JsonElement location=param.get("location");
             JsonElement date=param.get("weather");
 
             if(StringUtils.isEmpty(weather_location)) {
-                weather_location = "/SanJose";
+                weather_location = "SanJose";
             }
             else{
-                weather_location="/"+location.getAsString().toLowerCase();
+                weather_location=location.getAsString().toLowerCase();
             }
 
-            if(weather_date.equals("today")){
+            if("today".equals(date.getAsString().toLowerCase())){
 
-                httpGet=new HttpGet("https://"+ ApiAiConstants.WEATHER_HOST+ApiAiConstants.WEATHER_TODAY_ENDPOINT+"?"+weather_location);
+                httpGet=new HttpGet(ApiAiConstants.WEATHER_HOST+ApiAiConstants.WEATHER_TODAY_ENDPOINT+weather_location);
 
                 try {
+                    httpGet.addHeader(HttpHeaders.CONTENT_TYPE,"application/json");
                     response = client.execute(httpGet);
                     BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                     res = new StringBuffer();
@@ -77,9 +79,9 @@ public class WeatherApiServiceIntegration {
                     e.printStackTrace();
                 }
 
-            }else if(weather_date.equals("tomorrow")){
+            }else if("tomorrow".equals(date.getAsString().toLowerCase())){
 
-                httpGet=new HttpGet("https://"+ApiAiConstants.WEATHER_HOST+ApiAiConstants.WEATHER_FORECAST_ENDPOINT+"?"+weather_location);
+                httpGet=new HttpGet(ApiAiConstants.WEATHER_HOST+ApiAiConstants.WEATHER_FORECAST_ENDPOINT+weather_location);
 
                 try {
                     response = client.execute(httpGet);

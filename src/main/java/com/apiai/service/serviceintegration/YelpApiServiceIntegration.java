@@ -69,7 +69,7 @@ public class YelpApiServiceIntegration {
             JSONObject obj = new JSONObject();
 
             if(yelp_category.length()==0) {
-                request = new HttpPost("http://" + ApiAiConstants.YELP_HOST + ApiAiConstants.YELP_ENDPOINT);
+                request = new HttpPost(ApiAiConstants.YELP_HOST + ApiAiConstants.YELP_ENDPOINT);
 
                 if(StringUtils.isEmpty(yelp_location)) {
                     obj.put("latlong", yelp_latlong);
@@ -91,7 +91,7 @@ public class YelpApiServiceIntegration {
                 if (yelp_category.length() >0)
                     obj.put("filter",yelp_category.toString());
 
-                request=new HttpPost("http://"+ApiAiConstants.YELP_HOST+ApiAiConstants.YELP_ENDPOINT);
+                request=new HttpPost(ApiAiConstants.YELP_HOST+ApiAiConstants.YELP_ENDPOINT);
             }
 
             try {
