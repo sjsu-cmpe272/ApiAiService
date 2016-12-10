@@ -35,14 +35,13 @@ public class HotelApiServiceIntegration {
         HotelsResponse info =null;
         
         /* action check */
-        if ("blah".equalsIgnoreCase(action)) {
             JSONObject obj = new JSONObject();
-            JsonElement location=param.get("location");
-            JsonElement fromDate=param.get("fromDate");
-            JsonElement toDate=param.get("toDate");
+            JsonElement location=param.get("geo-city");
+            JsonElement fromDate=param.get("checkin");
+            JsonElement toDate=param.get("checkout");
 
             request = new HttpPost(ApiAiConstants.HOTEL_HOST +  ApiAiConstants.HOTEL_ENDPOINT);
-            obj.put("location",location);
+            obj.put("location","27542060");
             obj.put("fromDate",fromDate);
             obj.put("toDate", toDate);
 
@@ -59,15 +58,11 @@ public class HotelApiServiceIntegration {
                 }
                 info = new Gson().fromJson(result.toString(), HotelsResponse.class);
 
-
                 info.setType("hotel");
             }catch (Exception e) {
                 e.printStackTrace();
             }
 
-        }
-        
-        
         return info;
     }
 }

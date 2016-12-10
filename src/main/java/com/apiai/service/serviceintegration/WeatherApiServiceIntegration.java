@@ -109,19 +109,12 @@ public class WeatherApiServiceIntegration {
                     e.printStackTrace();
                 }
 
-
-
             }
-
-
-
             weatherResponse=new WeatherResponse();
             weatherResponse.setData(weatherObj);
             weatherResponse.setType("weather");
 
-
         }
-
         return weatherResponse;
 
     }

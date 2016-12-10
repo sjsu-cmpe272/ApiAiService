@@ -23,7 +23,7 @@ import java.util.HashMap;
  */
 public class CarsApiServiceIntegration {
 
-  public CarsResponse integrateHotelService(String action, HashMap<String,JsonElement> param) {
+  public CarsResponse integrateCarsService(String action, HashMap<String,JsonElement> param) {
 
     HttpClient client = HttpClientBuilder.create().build();
     HttpPost request = new HttpPost();
@@ -33,18 +33,17 @@ public class CarsApiServiceIntegration {
     CarsResponse info = null;
         
         /* action check */
-    if ("blah".equalsIgnoreCase(action)) {
       JSONObject obj = new JSONObject();
-      JsonElement location = param.get("pickupDropoff");
-      JsonElement fromDate = param.get("pickupDateTime");
-      JsonElement toDate = param.get("dropOffDateTime");
+      JsonElement location = param.get("geo-city");
+      JsonElement fromDate = param.get("start");
+      JsonElement toDate = param.get("stop");
       JsonElement driverAge = param.get("driverAge");
 
       request = new HttpPost(ApiAiConstants.CARS_HOST + ApiAiConstants.CARS_ENDPOINT);
       obj.put("pickupDropoff", location);
       obj.put("pickupDateTime", fromDate);
       obj.put("dropOffDateTime", toDate);
-      obj.put("driverAge", toDate);
+      obj.put("driverAge", 25);
 
       try {
         StringEntity input = new StringEntity(obj.toJSONString());
@@ -64,8 +63,6 @@ public class CarsApiServiceIntegration {
       } catch (Exception e) {
         e.printStackTrace();
       }
-
-    }
 
     return info;
   }
