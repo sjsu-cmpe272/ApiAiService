@@ -41,7 +41,7 @@ public class HotelApiServiceIntegration {
             JsonElement toDate=param.get("checkout");
 
             request = new HttpPost(ApiAiConstants.HOTEL_HOST +  ApiAiConstants.HOTEL_ENDPOINT);
-            obj.put("location","27542060");
+            obj.put("location",location);
             obj.put("fromDate",fromDate);
             obj.put("toDate", toDate);
 
